@@ -1,5 +1,4 @@
 .286
-; Programado por Crispin Condori Rodriguez
 title datos de 8 bits
 pila segment stack
   db 125 dup(?)
@@ -32,6 +31,7 @@ codigo segment
 		mov cx,0
 		mov dx,0
 		; PEDIR LOS DATOS
+		call saltar
 		mov dx, offset mensaje1
 		mov ah, 9
 		int 21h
@@ -40,13 +40,7 @@ codigo segment
 		sub al, '0'   ; Convertir el carácter ASCII en dígito decimal
 		mov n1, al
 		
-		; Imprimir un carácter de retorno de carro y un carácter de nueva línea para comenzar una nueva línea
-		mov dl, 13  ; Carácter de retorno de carro
-		mov ah, 2
-		int 21h
-		mov dl, 10  ; Carácter de nueva línea
-		mov ah, 2
-		int 21h
+		call saltar
 		
 		; Pedir al usuario que introduzca el segundo dígito
 		mov dx, offset mensaje2
@@ -59,13 +53,7 @@ codigo segment
 		sub al, '0'   ; Convertir el carácter ASCII en dígito decimal
 		mov n2, al
 		
-			; Imprimir un carácter de retorno de carro y un carácter de nueva línea para comenzar una nueva línea
-		mov dl, 13  ; Carácter de retorno de carro
-		mov ah, 2
-		int 21h
-		mov dl, 10  ; Carácter de nueva línea
-		mov ah, 2
-		int 21h
+		
 
 	; REALIZAR OPERACION
 		call saltar
@@ -125,7 +113,7 @@ codigo segment
 		xor cx,cx
 		mov si,10
 		bucle2ccr:
-			xor dx,dx			
+			xor dx,dx
 			div si 			;ax = ax div si     dx = ax mod si
 			push dx
 			inc cx
@@ -133,10 +121,10 @@ codigo segment
 		jne bucle2ccr
 		;
 		bucle3ccr:
-			pop dx			
+			pop dx
 			add dx,48
 			mov ah,2
-			int 21h			
+			int 21h
 		loop bucle3ccr
 		ret
 	mostrarAXnum endp 
